@@ -120,7 +120,7 @@ func (api *API) QueryContacts(params *QueryContactsParams) ([]Contact, error) {
 	return res, nil
 }
 
-// // QueryTasks -
-// func QueryTasks(params QueryTasksParams) {
-//
-// }
+// QueryTasks - Search among all tasks in current account.
+func QueryTasks(params QueryTasksParams) {
+
+}

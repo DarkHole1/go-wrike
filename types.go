@@ -23,6 +23,9 @@ type Metadata struct {
 	Value *string
 }
 
+// DateRange - Represents range for dates
+type DateRange struct{}
+
 // QueryContactsParams - Params for QueryContacts
 type QueryContactsParams struct {
 	Me       *bool
@@ -45,4 +48,14 @@ type Profile struct {
 	AccountID, Role        string
 	Email                  *string
 	External, Admin, Owner bool
+}
+
+// QueryTasksParams - Params for QueryTasks
+type QueryTasksParams struct {
+	Descendats, SubTasks                                                      *bool
+	Title, Importance, Permalink, Type, SortField, SortOrder, NextPageToken   *string
+	Status, Authors, Responsibles, CustomStatuses, Fields                     []string
+	StartDate, DueDate, SheduledDate, CreatedDate, UpdatedDate, CompletedDate *DateRange
+	Limit, PageSize                                                           *int
+	Metadata                                                                  *Metadata
 }
