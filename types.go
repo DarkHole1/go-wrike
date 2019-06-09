@@ -34,6 +34,16 @@ type QueryContactsParams struct {
 	Fields   []string
 }
 
+// QueryTasksParams - Params for QueryTasks
+type QueryTasksParams struct {
+	Descendats, SubTasks                                                      *bool
+	Title, Importance, Permalink, Type, SortField, SortOrder, NextPageToken   *string
+	Status, Authors, Responsibles, CustomStatuses, Fields                     []string
+	StartDate, DueDate, SheduledDate, CreatedDate, UpdatedDate, CompletedDate *DateRange
+	Limit, PageSize                                                           *int
+	Metadata                                                                  *Metadata
+}
+
 // Contact - Represents single contact
 type Contact struct {
 	ID, FirstName, LastName, Type, AvatarURL, Timezone, Locale string
@@ -50,12 +60,10 @@ type Profile struct {
 	External, Admin, Owner bool
 }
 
-// QueryTasksParams - Params for QueryTasks
-type QueryTasksParams struct {
-	Descendats, SubTasks                                                      *bool
-	Title, Importance, Permalink, Type, SortField, SortOrder, NextPageToken   *string
-	Status, Authors, Responsibles, CustomStatuses, Fields                     []string
-	StartDate, DueDate, SheduledDate, CreatedDate, UpdatedDate, CompletedDate *DateRange
-	Limit, PageSize                                                           *int
-	Metadata                                                                  *Metadata
+// Task - Represents task at wrike
+type Task struct {
+	ID, AccountID, Title, Status, Importance, CreatedDate, UpdatedDate, CompletedDate, Scope, CustomStatusID, Permalink, Priority string
+	Description, BriefDescription                                                                                                 *string
+	ParentIDs, SuperParentIDs, SharedIDs, ResponsibleIDs, AuthorsID                                                               []string
+	Metadata                                                                                                                      []Metadata
 }
