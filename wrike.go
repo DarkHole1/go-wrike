@@ -121,6 +121,6 @@ func (api *API) QueryContacts(params *QueryContactsParams) ([]Contact, error) {
 }
 
 // QueryTasks - Search among all tasks in current account.
-func QueryTasks(params QueryTasksParams) {
-
+func QueryTasks(params QueryTasksParams) ([]Task, error) {
+	return nil, nil
 }
