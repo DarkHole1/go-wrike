@@ -200,3 +200,8 @@ func parseContact(contact map[string]interface{}) Contact {
 
 	return res
 }
+
+func parseTask(task map[string]interface{}) Task {
+	var res Task
+	return res
+}
