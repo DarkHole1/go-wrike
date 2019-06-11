@@ -66,6 +66,6 @@ type Profile struct {
 type Task struct {
 	ID, AccountID, Title, Status, Importance, CreatedDate, UpdatedDate, CompletedDate, Scope, CustomStatusID, Permalink, Priority string
 	Description, BriefDescription                                                                                                 *string
-	ParentIDs, SuperParentIDs, SharedIDs, ResponsibleIDs, AuthorsID                                                               []string
+	ParentIDs, SuperParentIDs, SharedIDs, ResponsibleIDs, AuthorIDs                                                               []string
 	Metadata                                                                                                                      []Metadata
 }

@@ -166,6 +166,13 @@ func queryTaskParams2Values(params *QueryTasksParams) url.Values {
 	return res
 }
 
+func parseMetadata(meta map[string]interface{}) Metadata {
+	var res Metadata
+	res.Key = meta["key"].(string)
+	res.Value = OptionalString(meta["value"].(string))
+	return res
+}
+
 func parseContact(contact map[string]interface{}) Contact {
 	var res = Contact{}
 
@@ -189,12 +196,11 @@ func parseContact(contact map[string]interface{}) Contact {
 		res.MemberIDs = nil
 	}
 
-	if metadata, ok := contact["metadata"].([]interface{}); ok {
+	if metadata, ok := contact["metadata"].([]map[string]interface{}); ok {
 		res.Metadata = make([]Metadata, len(metadata))
-		for i, d := range metadata {
-			data := d.(map[string]interface{})
-			res.Metadata[i].Key = data["key"].(string)
-			res.Metadata[i].Value = OptionalString(data["value"].(string))
+		for i, meta := range metadata {
+			res.Metadata[i] = parseMetadata(meta)
+
 		}
 	}
 
@@ -203,5 +209,54 @@ func parseContact(contact map[string]interface{}) Contact {
 
 func parseTask(task map[string]interface{}) Task {
 	var res Task
+
+	res.ID = task["id"].(string)
+	res.AccountID = task["accountId"].(string)
+	res.Title = task["title"].(string)
+	res.Status = task["status"].(string)
+	res.Importance = task["importance"].(string)
+	res.CreatedDate = task["createdDate"].(string)
+	res.UpdatedDate = task["updatedDate"].(string)
+	res.CompletedDate = task["completedDate"].(string)
+	res.Scope = task["scope"].(string)
+	res.CustomStatusID = task["customStatusId"].(string)
+	res.Permalink = task["permalink"].(string)
+	res.Priority = task["priority"].(string)
+
+	if val, ok := task["description"].(string); ok {
+		res.Description = OptionalString(val)
+	}
+
+	if val, ok := task["briefDescription"].(string); ok {
+		res.BriefDescription = OptionalString(val)
+	}
+
+	if val, ok := task["parentIds"].([]string); ok {
+		res.ParentIDs = val
+	}
+
+	if val, ok := task["superParentIds"].([]string); ok {
+		res.SuperParentIDs = val
+	}
+
+	if val, ok := task["sharedIds"].([]string); ok {
+		res.SharedIDs = val
+	}
+
+	if val, ok := task["responsibleIds"].([]string); ok {
+		res.ResponsibleIDs = val
+	}
+
+	if val, ok := task["authorIds"].([]string); ok {
+		res.AuthorIDs = val
+	}
+
+	if metadata, ok := task["metadata"].([]map[string]interface{}); ok {
+		res.Metadata = make([]Metadata, len(metadata))
+		for i, meta := range metadata {
+			res.Metadata[i] = parseMetadata(meta)
+		}
+	}
+
 	return res
 }
