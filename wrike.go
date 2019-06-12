@@ -165,9 +165,9 @@ func (api API) GetTasks(taskids []string, params *GetTasksParams) ([]Task, error
 
 // GetTask - Returns complete information about single task
 func (api API) GetTask(taskid string, params *GetTasksParams) (*Task, error) {
-	tasks, err := GetTasks([]string{taskid}, params)
-	if err {
+	tasks, err := api.GetTasks([]string{taskid}, params)
+	if err != nil {
 		return nil, err
 	}
-	return tasks[0], nil
+	return &tasks[0], nil
 }
