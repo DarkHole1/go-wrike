@@ -166,6 +166,16 @@ func queryTaskParams2Values(params *QueryTasksParams) url.Values {
 	return res
 }
 
+func getTaskParams2Value(params *GetTasksParams) url.Values {
+	res := url.Values{}
+
+	if params.Fields != nil {
+		res["fields"] = []string{stringArray2String(params.Fields)}
+	}
+
+	return res
+}
+
 func parseMetadata(meta map[string]interface{}) Metadata {
 	var res Metadata
 	res.Key = meta["key"].(string)
