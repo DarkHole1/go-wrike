@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 func jsonRequest(method, url, token string, data url.Values) (map[string]interface{}, error) {
@@ -156,4 +157,52 @@ func (api API) QueryTasks(params *QueryTasksParams) ([]Task, error) {
 	}
 
 	return res, nil
+}
+
+// GetTasks - Returns complete information about multiple tasks
+func (api API) GetTasks(taskids []string, params *GetTasksParams) ([]Task, error) {
+	url := getTaskParams2Values(params)
+	tasks := strings.Join(taskids, ",")
+	resp, err := jsonRequest("GET", "tasks/"+tasks, api.Token, url)
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := checkError(resp)
+	if err != nil {
+		if val, ok := err.(Error); ok {
+			if val.ErrorShort == "not_authorized" {
+				if len(api.RefreshToken) != 0 {
+					err = api.Refresh()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return api.GetTasks(taskids, params)
+				}
+
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
+	}
+
+	res := make([]Task, len(data))
+
+	for i, c := range data {
+		res[i] = parseTask(c.(map[string]interface{}))
+	}
+
+	return res, nil
+}
+
+// GetTask - Returns complete information about single task
+func (api API) GetTask(taskid string, params *GetTasksParams) (*Task, error) {
+	tasks, err := api.GetTasks([]string{taskid}, params)
+	if err != nil {
+		return nil, err
+	}
+	return &tasks[0], nil
 }

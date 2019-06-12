@@ -46,6 +46,11 @@ type QueryTasksParams struct {
 	Metadata                                                                  *Metadata
 }
 
+// GetTasksParams - Params for GetTasks and GetTask
+type GetTasksParams struct {
+	Fields []string
+}
+
 // Contact - Represents single contact
 type Contact struct {
 	ID, FirstName, LastName, Type, AvatarURL, Timezone, Locale string
