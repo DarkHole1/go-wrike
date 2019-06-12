@@ -23,12 +23,27 @@ type Metadata struct {
 	Value *string
 }
 
+// DateRange - Represents range for dates
+type DateRange struct {
+	Start, Equal, End *string
+}
+
 // QueryContactsParams - Params for QueryContacts
 type QueryContactsParams struct {
 	Me       *bool
 	Metadata *Metadata
 	Deleted  *bool
 	Fields   []string
+}
+
+// QueryTasksParams - Params for QueryTasks
+type QueryTasksParams struct {
+	Descendants, SubTasks                                                     *bool
+	Title, Importance, Permalink, Type, SortField, SortOrder, NextPageToken   *string
+	Status, Authors, Responsibles, CustomStatuses, Fields                     []string
+	StartDate, DueDate, SheduledDate, CreatedDate, UpdatedDate, CompletedDate *DateRange
+	Limit, PageSize                                                           *int
+	Metadata                                                                  *Metadata
 }
 
 // Contact - Represents single contact
@@ -45,4 +60,12 @@ type Profile struct {
 	AccountID, Role        string
 	Email                  *string
 	External, Admin, Owner bool
+}
+
+// Task - Represents task at wrike
+type Task struct {
+	ID, AccountID, Title, Status, Importance, CreatedDate, UpdatedDate, Scope, CustomStatusID, Permalink, Priority string
+	Description, BriefDescription, CompletedDate                                                                   *string
+	ParentIDs, SuperParentIDs, SharedIDs, ResponsibleIDs, AuthorIDs                                                []string
+	Metadata                                                                                                       []Metadata
 }

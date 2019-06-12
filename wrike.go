@@ -120,7 +120,40 @@ func (api *API) QueryContacts(params *QueryContactsParams) ([]Contact, error) {
 	return res, nil
 }
 
-// // QueryTasks -
-// func QueryTasks(params QueryTasksParams) {
-//
-// }
+// QueryTasks - Search among all tasks in current account.
+func (api API) QueryTasks(params *QueryTasksParams) ([]Task, error) {
+	url := queryTaskParams2Values(params)
+	resp, err := jsonRequest("GET", "tasks", api.Token, url)
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := checkError(resp)
+	if err != nil {
+		if val, ok := err.(Error); ok {
+			if val.ErrorShort == "not_authorized" {
+				if len(api.RefreshToken) != 0 {
+					err = api.Refresh()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return api.QueryTasks(params)
+				}
+
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
+	}
+
+	res := make([]Task, len(data))
+
+	for i, c := range data {
+		res[i] = parseTask(c.(map[string]interface{}))
+	}
+
+	return res, nil
+}
