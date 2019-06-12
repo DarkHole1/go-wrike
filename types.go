@@ -48,6 +48,7 @@ type QueryTasksParams struct {
 
 // GetTasksParams - Params for GetTasks and GetTask
 type GetTasksParams struct {
+	Fields []string
 }
 
 // Contact - Represents single contact
