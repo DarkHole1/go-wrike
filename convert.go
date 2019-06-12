@@ -166,7 +166,7 @@ func queryTaskParams2Values(params *QueryTasksParams) url.Values {
 	return res
 }
 
-func getTaskParams2Value(params *GetTasksParams) url.Values {
+func getTaskParams2Values(params *GetTasksParams) url.Values {
 	res := url.Values{}
 
 	if params.Fields != nil {
