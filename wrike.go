@@ -157,3 +157,17 @@ func (api API) QueryTasks(params *QueryTasksParams) ([]Task, error) {
 
 	return res, nil
 }
+
+// GetTasks - Returns complete information about multiple tasks
+func (api API) GetTasks(taskids []string, params *GetTasksParams) ([]Task, error) {
+	return nil, nil
+}
+
+// GetTask - Returns complete information about single task
+func (api API) GetTask(taskid string, params *GetTasksParams) (*Task, error) {
+	tasks, err := GetTasks([]string{taskid}, params)
+	if err {
+		return nil, err
+	}
+	return tasks[0], nil
+}
