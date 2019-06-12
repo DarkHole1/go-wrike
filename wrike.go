@@ -123,7 +123,7 @@ func (api *API) QueryContacts(params *QueryContactsParams) ([]Contact, error) {
 // QueryTasks - Search among all tasks in current account.
 func (api API) QueryTasks(params *QueryTasksParams) ([]Task, error) {
 	url := queryTaskParams2Values(params)
-	resp, err := jsonRequest("GET", "contacts", api.Token, url)
+	resp, err := jsonRequest("GET", "tasks", api.Token, url)
 	if err != nil {
 		return nil, err
 	}

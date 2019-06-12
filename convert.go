@@ -217,7 +217,6 @@ func parseTask(task map[string]interface{}) Task {
 	res.Importance = task["importance"].(string)
 	res.CreatedDate = task["createdDate"].(string)
 	res.UpdatedDate = task["updatedDate"].(string)
-	res.CompletedDate = task["completedDate"].(string)
 	res.Scope = task["scope"].(string)
 	res.CustomStatusID = task["customStatusId"].(string)
 	res.Permalink = task["permalink"].(string)
@@ -229,6 +228,10 @@ func parseTask(task map[string]interface{}) Task {
 
 	if val, ok := task["briefDescription"].(string); ok {
 		res.BriefDescription = OptionalString(val)
+	}
+
+	if val, ok := task["completedDate"].(string); ok {
+		res.CompletedDate = OptionalString(val)
 	}
 
 	if val, ok := task["parentIds"].([]string); ok {

@@ -64,8 +64,8 @@ type Profile struct {
 
 // Task - Represents task at wrike
 type Task struct {
-	ID, AccountID, Title, Status, Importance, CreatedDate, UpdatedDate, CompletedDate, Scope, CustomStatusID, Permalink, Priority string
-	Description, BriefDescription                                                                                                 *string
-	ParentIDs, SuperParentIDs, SharedIDs, ResponsibleIDs, AuthorIDs                                                               []string
-	Metadata                                                                                                                      []Metadata
+	ID, AccountID, Title, Status, Importance, CreatedDate, UpdatedDate, Scope, CustomStatusID, Permalink, Priority string
+	Description, BriefDescription, CompletedDate                                                                   *string
+	ParentIDs, SuperParentIDs, SharedIDs, ResponsibleIDs, AuthorIDs                                                []string
+	Metadata                                                                                                       []Metadata
 }
