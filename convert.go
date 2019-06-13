@@ -381,6 +381,17 @@ func parseWorkflow(workflow map[string]interface{}) Workflow {
 
 func parseCustomStatus(status map[string]interface{}) CustomStatus {
 	var res CustomStatus
-	// TODO: Add conversion
+
+	res.ID = status["id"].(string)
+	res.Name = status["name"].(string)
+	res.Group = status["group"].(string)
+
+	if val, ok := status["color"].(string); ok {
+		res.Color = OptionalString(val)
+	}
+
+	res.StandartName = status["standartName"].(bool)
+	res.Standart = status["standart"].(bool)
+
 	return res
 }
