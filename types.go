@@ -53,7 +53,10 @@ type GetTasksParams struct {
 
 // ModifyTaskParams - Params for ModifyTask
 type ModifyTaskParams struct {
-	// TODO: Add params
+	Title, Description, Status, Importance, PriorityBefore, PriorityAfter, CustomStatus                                                              *string
+	AddParents, RemoveParents, AddShareds, RemoveShareds, AddResponsibles, RemoveResponsibles, AddFollowers, AddSuperTasks, RemoveSuperTasks, Fields []string
+	Follow, Restore                                                                                                                                  *bool
+	Metadata                                                                                                                                         []Metadata
 }
 
 // Contact - Represents single contact
