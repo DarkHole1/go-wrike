@@ -360,3 +360,38 @@ func parseTask(task map[string]interface{}) Task {
 
 	return res
 }
+
+func parseWorkflow(workflow map[string]interface{}) Workflow {
+	var res Workflow
+
+	res.ID = workflow["id"].(string)
+	res.Name = workflow["name"].(string)
+	res.Standard = workflow["standard"].(bool)
+	res.Hidden = workflow["hidden"].(bool)
+
+	cs := workflow["customStatuses"].([]interface{})
+	res.CustomStatuses = make([]CustomStatus, len(cs))
+
+	for i, status := range cs {
+		res.CustomStatuses[i] = parseCustomStatus(status.(map[string]interface{}))
+	}
+
+	return res
+}
+
+func parseCustomStatus(status map[string]interface{}) CustomStatus {
+	var res CustomStatus
+
+	res.ID = status["id"].(string)
+	res.Name = status["name"].(string)
+	res.Group = status["group"].(string)
+
+	if val, ok := status["color"].(string); ok {
+		res.Color = OptionalString(val)
+	}
+
+	res.StandardName = status["standardName"].(bool)
+	res.Standard = status["standard"].(bool)
+
+	return res
+}

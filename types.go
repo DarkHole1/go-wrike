@@ -82,3 +82,17 @@ type Task struct {
 	ParentIDs, SuperParentIDs, SharedIDs, ResponsibleIDs, AuthorIDs                                                []string
 	Metadata                                                                                                       []Metadata
 }
+
+// Workflow - Represents single workflow
+type Workflow struct {
+	ID, Name         string
+	Standard, Hidden bool
+	CustomStatuses   []CustomStatus
+}
+
+// CustomStatus - Represents custom status
+type CustomStatus struct {
+	ID, Name, Group        string
+	Color                  *string
+	StandardName, Standard bool
+}
