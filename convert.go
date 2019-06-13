@@ -366,14 +366,14 @@ func parseWorkflow(workflow map[string]interface{}) Workflow {
 
 	res.ID = workflow["id"].(string)
 	res.Name = workflow["name"].(string)
-	res.Standart = workflow["standart"].(bool)
+	res.Standard = workflow["standard"].(bool)
 	res.Hidden = workflow["hidden"].(bool)
 
-	cs := workflow["customStatuses"].([]map[string]interface{})
+	cs := workflow["customStatuses"].([]interface{})
 	res.CustomStatuses = make([]CustomStatus, len(cs))
 
 	for i, status := range cs {
-		res.CustomStatuses[i] = parseCustomStatus(status)
+		res.CustomStatuses[i] = parseCustomStatus(status.(map[string]interface{}))
 	}
 
 	return res
@@ -390,8 +390,8 @@ func parseCustomStatus(status map[string]interface{}) CustomStatus {
 		res.Color = OptionalString(val)
 	}
 
-	res.StandartName = status["standartName"].(bool)
-	res.Standart = status["standart"].(bool)
+	res.StandardName = status["standardName"].(bool)
+	res.Standard = status["standard"].(bool)
 
 	return res
 }

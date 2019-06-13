@@ -86,7 +86,7 @@ type Task struct {
 // Workflow - Represents single workflow
 type Workflow struct {
 	ID, Name         string
-	Standart, Hidden bool
+	Standard, Hidden bool
 	CustomStatuses   []CustomStatus
 }
 
@@ -94,5 +94,5 @@ type Workflow struct {
 type CustomStatus struct {
 	ID, Name, Group        string
 	Color                  *string
-	StandartName, Standart bool
+	StandardName, Standard bool
 }
