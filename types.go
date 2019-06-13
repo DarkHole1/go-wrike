@@ -85,5 +85,12 @@ type Task struct {
 
 // Workflow - Represents single workflow
 type Workflow struct {
-	// TODO: Add fields
+	ID, Name         string
+	Standart, Hidden bool
+	CustomStatuses   []CustomStatus
+}
+
+// CustomStatus - Represents custom status
+type CustomStatus struct {
+	// TODO: Add type
 }

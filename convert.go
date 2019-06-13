@@ -366,3 +366,9 @@ func parseWorkflow(workflow map[string]interface{}) Workflow {
 	// TODO: Add conversion
 	return res
 }
+
+func parseCustomStatus(status map[string]interface{}) CustomStatus {
+	var res CustomStatus
+	// TODO: Add conversion
+	return res
+}
