@@ -247,6 +247,37 @@ func (api API) ModifyTask(taskid string, params *ModifyTaskParams) (*Task, error
 
 // GetWorkflows - Returns list of workflows with custom statuses.
 func (api API) GetWorkflows() ([]Workflow, error) {
-	// TODO: Add logic
-	return nil, nil
+	resp, err := jsonRequest("GET", "workflows", api.Token, url.Values{})
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := checkError(resp)
+	if err != nil {
+		if val, ok := err.(Error); ok {
+			if val.ErrorShort == "not_authorized" {
+				if len(api.RefreshToken) != 0 {
+					err = api.Refresh()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return api.GetWorkflows()
+				}
+
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
+	}
+
+	res := make([]Workflow, len(data))
+
+	for i, c := range data {
+		res[i] = parseWorkflow(c.(map[string]interface{}))
+	}
+
+	return res, nil
 }
