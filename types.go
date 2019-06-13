@@ -51,6 +51,11 @@ type GetTasksParams struct {
 	Fields []string
 }
 
+// ModifyTaskParams - Params for ModifyTask
+type ModifyTaskParams struct {
+	// TODO: Add params
+}
+
 // Contact - Represents single contact
 type Contact struct {
 	ID, FirstName, LastName, Type, AvatarURL, Timezone, Locale string

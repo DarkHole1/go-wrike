@@ -176,6 +176,12 @@ func getTaskParams2Values(params *GetTasksParams) url.Values {
 	return res
 }
 
+func modifyTaskParams2Values(params *ModifyTaskParams) url.Values {
+	res := url.Values{}
+	// TODO: Add conversion
+	return res
+}
+
 func parseMetadata(meta map[string]interface{}) Metadata {
 	var res Metadata
 	res.Key = meta["key"].(string)

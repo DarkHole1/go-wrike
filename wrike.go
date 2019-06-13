@@ -206,3 +206,9 @@ func (api API) GetTask(taskid string, params *GetTasksParams) (*Task, error) {
 	}
 	return &tasks[0], nil
 }
+
+// ModifyTask - Updates a task
+func (api API) ModifyTask(taskid string, params *ModifyTaskParams) (*Task, error) {
+	// TODO: Add logic
+	return nil, nil
+}
