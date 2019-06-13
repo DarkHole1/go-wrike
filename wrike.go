@@ -244,3 +244,9 @@ func (api API) ModifyTask(taskid string, params *ModifyTaskParams) (*Task, error
 
 	return &res[0], nil
 }
+
+// GetWorkflows - Returns list of workflows with custom statuses.
+func (api API) GetWorkflows() ([]Workflow, error) {
+	// TODO: Add logic
+	return nil, nil
+}

@@ -82,3 +82,8 @@ type Task struct {
 	ParentIDs, SuperParentIDs, SharedIDs, ResponsibleIDs, AuthorIDs                                                []string
 	Metadata                                                                                                       []Metadata
 }
+
+// Workflow - Represents single workflow
+type Workflow struct {
+	// TODO: Add fields
+}

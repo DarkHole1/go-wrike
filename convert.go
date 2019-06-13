@@ -360,3 +360,9 @@ func parseTask(task map[string]interface{}) Task {
 
 	return res
 }
+
+func parseWorkflow(workflow map[string]interface{}) Workflow {
+	var res Workflow
+	// TODO: Add conversion
+	return res
+}
