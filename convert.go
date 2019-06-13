@@ -363,7 +363,19 @@ func parseTask(task map[string]interface{}) Task {
 
 func parseWorkflow(workflow map[string]interface{}) Workflow {
 	var res Workflow
-	// TODO: Add conversion
+
+	res.ID = workflow["id"].(string)
+	res.Name = workflow["name"].(string)
+	res.Standart = workflow["standart"].(bool)
+	res.Hidden = workflow["hidden"].(bool)
+
+	cs := workflow["customStatuses"].([]map[string]interface{})
+	res.CustomStatuses = make([]CustomStatus, len(cs))
+
+	for i, status := range cs {
+		res.CustomStatuses[i] = parseCustomStatus(status)
+	}
+
 	return res
 }
 
