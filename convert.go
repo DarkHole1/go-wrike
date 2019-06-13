@@ -3,6 +3,7 @@ package wrike
 import (
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 func metadata2String(metadata *Metadata) string {
@@ -178,7 +179,87 @@ func getTaskParams2Values(params *GetTasksParams) url.Values {
 
 func modifyTaskParams2Values(params *ModifyTaskParams) url.Values {
 	res := url.Values{}
-	// TODO: Add conversion
+
+	if params.Title != nil {
+		res["title"] = []string{*params.Title}
+	}
+
+	if params.Description != nil {
+		res["descrption"] = []string{*params.Description}
+	}
+
+	if params.Status != nil {
+		res["status"] = []string{*params.Status}
+	}
+
+	if params.Importance != nil {
+		res["importance"] = []string{*params.Importance}
+	}
+
+	if params.PriorityBefore != nil {
+		res["priorityBefore"] = []string{*params.PriorityBefore}
+	}
+
+	if params.PriorityAfter != nil {
+		res["priorityAfter"] = []string{*params.PriorityAfter}
+	}
+
+	if params.AddParents != nil {
+		res["addParents"] = []string{stringArray2String(params.AddParents)}
+	}
+
+	if params.RemoveParents != nil {
+		res["removeParents"] = []string{stringArray2String(params.RemoveParents)}
+	}
+
+	if params.AddShareds != nil {
+		res["addShareds"] = []string{stringArray2String(params.AddShareds)}
+	}
+
+	if params.RemoveShareds != nil {
+		res["removeShareds"] = []string{stringArray2String(params.RemoveShareds)}
+	}
+
+	if params.AddResponsibles != nil {
+		res["addResponsibles"] = []string{stringArray2String(params.AddResponsibles)}
+	}
+
+	if params.RemoveResponsibles != nil {
+		res["removeResponsibles"] = []string{stringArray2String(params.RemoveResponsibles)}
+	}
+
+	if params.AddFollowers != nil {
+		res["addFollowers"] = []string{stringArray2String(params.AddFollowers)}
+	}
+
+	if params.AddSuperTasks != nil {
+		res["addSuperTasks"] = []string{stringArray2String(params.AddFollowers)}
+	}
+
+	if params.RemoveSuperTasks != nil {
+		res["removeSuperTasks"] = []string{stringArray2String(params.RemoveSuperTasks)}
+	}
+
+	if params.Fields != nil {
+		res["fields"] = []string{stringArray2String(params.Fields)}
+	}
+
+	if params.Follow != nil {
+		res["follow"] = []string{strconv.FormatBool(*params.Follow)}
+	}
+
+	if params.Restore != nil {
+		res["restore"] = []string{strconv.FormatBool(*params.Restore)}
+	}
+
+	if params.Metadata != nil {
+		subres := make([]string, len(params.Metadata))
+		for i, meta := range params.Metadata {
+			subres[i] = metadata2String(&meta)
+		}
+		res["metadata"] = []string{"[" + strings.Join(subres, ",") + "]"}
+	}
+
 	return res
 }
 
