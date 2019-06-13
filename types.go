@@ -92,5 +92,7 @@ type Workflow struct {
 
 // CustomStatus - Represents custom status
 type CustomStatus struct {
-	// TODO: Add type
+	ID, Name, Group        string
+	Color                  *string
+	StandartName, Standart bool
 }
