@@ -307,14 +307,10 @@ func parseContact(contact map[string]interface{}) Contact {
 
 	if val, ok := contact["me"].(bool); ok {
 		res.Me = OptionalBool(val)
-	} else {
-		res.Me = nil
 	}
 
 	if val, ok := contact["memberIds"].([]string); ok {
 		res.MemberIDs = val
-	} else {
-		res.MemberIDs = nil
 	}
 
 	if metadata, ok := contact["metadata"].([]map[string]interface{}); ok {
