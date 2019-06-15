@@ -67,13 +67,13 @@ func queryContactsParams2Values(params *QueryContactsParams) url.Values {
 	}
 
 	return res
-}
 
 func queryTaskParams2Values(params *QueryTasksParams) url.Values {
 	res := url.Values{}
 
 	if params.Descendants != nil {
 		res["descendants"] = []string{strconv.FormatBool(*params.Descendants)}
+	}
 	}
 
 	if params.SubTasks != nil {
@@ -145,11 +145,11 @@ func queryTaskParams2Values(params *QueryTasksParams) url.Values {
 	}
 
 	if params.UpdatedDate != nil {
-		res["updatedDate"] = []string{dateRange2String(params.CreatedDate)}
+		res["updatedDate"] = []string{dateRange2String(params.UpdatedDate)}
 	}
 
 	if params.CompletedDate != nil {
-		res["completedDate"] = []string{dateRange2String(params.UpdatedDate)}
+		res["completedDate"] = []string{dateRange2String(params.CreatedDate)}
 	}
 
 	if params.Limit != nil {
