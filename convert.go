@@ -270,6 +270,23 @@ func parseMetadata(meta map[string]interface{}) Metadata {
 	return res
 }
 
+func parseProfile(profile map[string]interface{}) Profile {
+	var res Profile
+
+	res.AccountID = profile["accountId"].(string)
+	res.Role = profile["role"].(string)
+
+	if val, ok := profile["email"].(string); ok {
+		res.Email = OptionalString(val)
+	}
+
+	res.External = profile["external"].(bool)
+	res.Admin = profile["admin"].(bool)
+	res.Owner = profile["owner"].(bool)
+
+	return res
+}
+
 func parseContact(contact map[string]interface{}) Contact {
 	var res = Contact{}
 
@@ -281,23 +298,25 @@ func parseContact(contact map[string]interface{}) Contact {
 	res.Timezone = contact["timezone"].(string)
 	res.Locale = contact["locale"].(string)
 
+	if val, ok := contact["profiles"].([]interface{}); ok {
+		res.Profiles = make([]Profile, len(val))
+		for i, profile := range val {
+			res.Profiles[i] = parseProfile(profile.(map[string]interface{}))
+		}
+	}
+
 	if val, ok := contact["me"].(bool); ok {
 		res.Me = OptionalBool(val)
-	} else {
-		res.Me = nil
 	}
 
 	if val, ok := contact["memberIds"].([]string); ok {
 		res.MemberIDs = val
-	} else {
-		res.MemberIDs = nil
 	}
 
 	if metadata, ok := contact["metadata"].([]map[string]interface{}); ok {
 		res.Metadata = make([]Metadata, len(metadata))
 		for i, meta := range metadata {
 			res.Metadata[i] = parseMetadata(meta)
-
 		}
 	}
 
