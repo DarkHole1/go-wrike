@@ -313,8 +313,11 @@ func parseContact(contact map[string]interface{}) Contact {
 		res.Me = OptionalBool(val)
 	}
 
-	if val, ok := contact["memberIds"].([]string); ok {
-		res.MemberIDs = val
+	if val, ok := contact["memberIds"].([]interface{}); ok {
+		res.MemberIDs = make([]string, len(val))
+		for i, s := range val {
+			res.MemberIDs[i] = s.(string)
+		}
 	}
 
 	if metadata, ok := contact["metadata"].([]map[string]interface{}); ok {
@@ -354,24 +357,39 @@ func parseTask(task map[string]interface{}) Task {
 		res.CompletedDate = OptionalString(val)
 	}
 
-	if val, ok := task["parentIds"].([]string); ok {
-		res.ParentIDs = val
+	if val, ok := task["parentIds"].([]interface{}); ok {
+		res.ParentIDs = make([]string, len(val))
+		for i, s := range val {
+			res.ParentIDs[i] = s.(string)
+		}
 	}
 
-	if val, ok := task["superParentIds"].([]string); ok {
-		res.SuperParentIDs = val
+	if val, ok := task["superParentIds"].([]interface{}); ok {
+		res.SuperParentIDs = make([]string, len(val))
+		for i, s := range val {
+			res.SuperParentIDs[i] = s.(string)
+		}
 	}
 
-	if val, ok := task["sharedIds"].([]string); ok {
-		res.SharedIDs = val
+	if val, ok := task["sharedIds"].([]interface{}); ok {
+		res.SharedIDs = make([]string, len(val))
+		for i, s := range val {
+			res.SharedIDs[i] = s.(string)
+		}
 	}
 
-	if val, ok := task["responsibleIds"].([]string); ok {
-		res.ResponsibleIDs = val
+	if val, ok := task["responsibleIds"].([]interface{}); ok {
+		res.ResponsibleIDs = make([]string, len(val))
+		for i, s := range val {
+			res.ResponsibleIDs[i] = s.(string)
+		}
 	}
 
-	if val, ok := task["authorIds"].([]string); ok {
-		res.AuthorIDs = val
+	if val, ok := task["authorIds"].([]interface{}); ok {
+		res.AuthorIDs = make([]string, len(val))
+		for i, s := range val {
+			res.AuthorIDs[i] = s.(string)
+		}
 	}
 
 	if metadata, ok := task["metadata"].([]map[string]interface{}); ok {
