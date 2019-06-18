@@ -204,6 +204,10 @@ func modifyTaskParams2Values(params *ModifyTaskParams) url.Values {
 		res["priorityAfter"] = []string{*params.PriorityAfter}
 	}
 
+	if params.CustomStatus != nil {
+		res["customStatus"] = []string{*params.CustomStatus}
+	}
+
 	if params.AddParents != nil {
 		res["addParents"] = []string{stringArray2String(params.AddParents)}
 	}
