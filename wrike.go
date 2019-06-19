@@ -281,3 +281,8 @@ func (api API) GetWorkflows() ([]Workflow, error) {
 
 	return res, nil
 }
+
+func (api *API) QueryFolders(params *QueryFoldersParams) ([]Folder, error) {
+	// TODO: Add logic
+	return nil, nil
+}

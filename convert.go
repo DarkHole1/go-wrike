@@ -267,6 +267,12 @@ func modifyTaskParams2Values(params *ModifyTaskParams) url.Values {
 	return res
 }
 
+func queryFoldersParams2Values(params *QueryFoldersParams) url.Values {
+	res := url.Values{}
+	// TODO: Add logic
+	return res
+}
+
 func parseMetadata(meta map[string]interface{}) Metadata {
 	var res Metadata
 	res.Key = meta["key"].(string)
@@ -434,5 +440,11 @@ func parseCustomStatus(status map[string]interface{}) CustomStatus {
 	res.StandardName = status["standardName"].(bool)
 	res.Standard = status["standard"].(bool)
 
+	return res
+}
+
+func parseFolder(folder map[string]interface{}) Folder {
+	var res Folder
+	// TODO: Add logic
 	return res
 }

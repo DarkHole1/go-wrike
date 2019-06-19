@@ -59,6 +59,11 @@ type ModifyTaskParams struct {
 	Metadata                                                                                                                                         []Metadata
 }
 
+// QueryFoldersParams - Params for QueryFolders
+type QueryFoldersParams struct {
+	// TODO: Add type
+}
+
 // Contact - Represents single contact
 type Contact struct {
 	ID, FirstName, LastName, Type, AvatarURL, Timezone, Locale string
@@ -95,4 +100,9 @@ type CustomStatus struct {
 	ID, Name, Group        string
 	Color                  *string
 	StandardName, Standard bool
+}
+
+// Folder - Represents single folder
+type Folder struct {
+	// TODO: Add type
 }
