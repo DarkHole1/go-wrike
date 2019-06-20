@@ -59,6 +59,15 @@ type ModifyTaskParams struct {
 	Metadata                                                                                                                                         []Metadata
 }
 
+// QueryFoldersParams - Params for QueryFolders
+type QueryFoldersParams struct {
+	Permalink                     *string
+	Descendants, Project, Deleted *bool
+	UpdatedDate                   *DateRange
+	Fields                        []string
+	Metadata                      *Metadata
+}
+
 // Contact - Represents single contact
 type Contact struct {
 	ID, FirstName, LastName, Type, AvatarURL, Timezone, Locale string
@@ -95,4 +104,19 @@ type CustomStatus struct {
 	ID, Name, Group        string
 	Color                  *string
 	StandardName, Standard bool
+}
+
+// Project - Represents project details
+type Project struct {
+	AuthorID                                                       string
+	CustomStatusID, StartDate, EndDate, CreatedDate, CompletedDate *string
+	OwnerIDs                                                       []string
+}
+
+// Folder - Represents single folder
+type Folder struct {
+	ID, Title, Scope string
+	Color            *string
+	ChildIDs         []string
+	Project          Project
 }

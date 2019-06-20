@@ -267,6 +267,40 @@ func modifyTaskParams2Values(params *ModifyTaskParams) url.Values {
 	return res
 }
 
+func queryFoldersParams2Values(params *QueryFoldersParams) url.Values {
+	res := url.Values{}
+
+	if params.Permalink != nil {
+		res["permalink"] = []string{*params.Permalink}
+	}
+
+	if params.Descendants != nil {
+		res["descendants"] = []string{strconv.FormatBool(*params.Descendants)}
+	}
+
+	if params.Project != nil {
+		res["project"] = []string{strconv.FormatBool(*params.Project)}
+	}
+
+	if params.Deleted != nil {
+		res["deleted"] = []string{strconv.FormatBool(*params.Deleted)}
+	}
+
+	if params.UpdatedDate != nil {
+		res["updatedDate"] = []string{dateRange2String(params.UpdatedDate)}
+	}
+
+	if params.Fields != nil {
+		res["fields"] = []string{stringArray2String(params.Fields)}
+	}
+
+	if params.Metadata != nil {
+		res["metadata"] = []string{metadata2String(params.Metadata)}
+	}
+
+	return res
+}
+
 func parseMetadata(meta map[string]interface{}) Metadata {
 	var res Metadata
 	res.Key = meta["key"].(string)
@@ -433,6 +467,66 @@ func parseCustomStatus(status map[string]interface{}) CustomStatus {
 
 	res.StandardName = status["standardName"].(bool)
 	res.Standard = status["standard"].(bool)
+
+	return res
+}
+
+func parseProject(project map[string]interface{}) Project {
+	var res Project
+
+	res.AuthorID = project["authorId"].(string)
+
+	if val, ok := project["customStatusId"].(string); ok {
+		res.CustomStatusID = OptionalString(val)
+	}
+
+	if val, ok := project["startDate"].(string); ok {
+		res.StartDate = OptionalString(val)
+	}
+
+	if val, ok := project["endDate"].(string); ok {
+		res.EndDate = OptionalString(val)
+	}
+
+	if val, ok := project["createdDate"].(string); ok {
+		res.CreatedDate = OptionalString(val)
+	}
+
+	if val, ok := project["completedDate"].(string); ok {
+		res.CompletedDate = OptionalString(val)
+	}
+
+	if val, ok := project["ownerIds"].([]interface{}); ok {
+		res.OwnerIDs = make([]string, len(val))
+		for i, s := range val {
+			res.OwnerIDs[i] = s.(string)
+		}
+	}
+
+	return res
+}
+
+func parseFolder(folder map[string]interface{}) Folder {
+	var res Folder
+
+	res.ID = folder["id"].(string)
+	res.Title = folder["title"].(string)
+	res.Scope = folder["scope"].(string)
+
+	if val, ok := folder["Color"].(string); ok {
+		res.Color = OptionalString(val)
+	}
+
+	if val, ok := folder["childIds"].([]interface{}); ok {
+		res.ChildIDs = make([]string, len(val))
+		for i, s := range val {
+			res.ChildIDs[i] = s.(string)
+		}
+	}
+
+	if val, ok := folder["project"].(map[string]interface{}); ok {
+		res.Project = parseProject(val)
+	}
 
 	return res
 }
