@@ -284,7 +284,8 @@ func (api API) GetWorkflows() ([]Workflow, error) {
 
 // QueryFolders - Returns a list of folders
 func (api *API) QueryFolders(params *QueryFoldersParams) ([]Folder, error) {
-	resp, err := jsonRequest("GET", "folders", api.Token, url.Values{})
+	url := queryFoldersParams2Values(params)
+	resp, err := jsonRequest("GET", "folders", api.Token, url)
 	if err != nil {
 		return nil, err
 	}
