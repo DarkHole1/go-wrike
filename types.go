@@ -61,7 +61,11 @@ type ModifyTaskParams struct {
 
 // QueryFoldersParams - Params for QueryFolders
 type QueryFoldersParams struct {
-	// TODO: Add type
+	Permalink                     *string
+	Descendants, Project, Deleted *bool
+	UpdatedDate                   *DateRange
+	Fields                        []string
+	Metadata                      *Metadata
 }
 
 // Contact - Represents single contact

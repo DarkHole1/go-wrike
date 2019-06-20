@@ -269,7 +269,35 @@ func modifyTaskParams2Values(params *ModifyTaskParams) url.Values {
 
 func queryFoldersParams2Values(params *QueryFoldersParams) url.Values {
 	res := url.Values{}
-	// TODO: Add logic
+
+	if params.Permalink != nil {
+		res["permalink"] = []string{*params.Permalink}
+	}
+
+	if params.Descendants != nil {
+		res["descendants"] = []string{strconv.FormatBool(*params.Descendants)}
+	}
+
+	if params.Project != nil {
+		res["project"] = []string{strconv.FormatBool(*params.Project)}
+	}
+
+	if params.Deleted != nil {
+		res["deleted"] = []string{strconv.FormatBool(*params.Deleted)}
+	}
+
+	if params.UpdatedDate != nil {
+		res["updatedDate"] = []string{dateRange2String(params.UpdatedDate)}
+	}
+
+	if params.Fields != nil {
+		res["fields"] = []string{stringArray2String(params.Fields)}
+	}
+
+	if params.Metadata != nil {
+		res["metadata"] = []string{metadata2String(params.Metadata)}
+	}
+
 	return res
 }
 
