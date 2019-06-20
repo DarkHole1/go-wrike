@@ -473,7 +473,36 @@ func parseCustomStatus(status map[string]interface{}) CustomStatus {
 
 func parseProject(project map[string]interface{}) Project {
 	var res Project
-	// TODO: add logic
+
+	res.AuthorID = project["authorId"].(string)
+
+	if val, ok := project["customStatusId"].(string); ok {
+		res.CustomStatusID = OptionalString(val)
+	}
+
+	if val, ok := project["startDate"].(string); ok {
+		res.StartDate = OptionalString(val)
+	}
+
+	if val, ok := project["endDate"].(string); ok {
+		res.EndDate = OptionalString(val)
+	}
+
+	if val, ok := project["createdDate"].(string); ok {
+		res.CreatedDate = OptionalString(val)
+	}
+
+	if val, ok := project["completedDate"].(string); ok {
+		res.CompletedDate = OptionalString(val)
+	}
+
+	if val, ok := project["ownerIds"].([]interface{}); ok {
+		res.OwnerIDs = make([]string, len(val))
+		for i, s := range val {
+			res.OwnerIDs[i] = s.(string)
+		}
+	}
+
 	return res
 }
 

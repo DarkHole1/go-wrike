@@ -108,7 +108,9 @@ type CustomStatus struct {
 
 // Project - Represents project details
 type Project struct {
-	// TODO: add type
+	AuthorID                                                       string
+	CustomStatusID, StartDate, EndDate, CreatedDate, CompletedDate *string
+	OwnerIDs                                                       []string
 }
 
 // Folder - Represents single folder
