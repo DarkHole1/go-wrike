@@ -282,7 +282,39 @@ func (api API) GetWorkflows() ([]Workflow, error) {
 	return res, nil
 }
 
+// QueryFolders - Returns a list of folders
 func (api *API) QueryFolders(params *QueryFoldersParams) ([]Folder, error) {
-	// TODO: Add logic
-	return nil, nil
+	resp, err := jsonRequest("GET", "folders", api.Token, url.Values{})
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := checkError(resp)
+	if err != nil {
+		if val, ok := err.(Error); ok {
+			if val.ErrorShort == "not_authorized" {
+				if len(api.RefreshToken) != 0 {
+					err = api.Refresh()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return api.QueryFolders(params)
+				}
+
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
+	}
+
+	res := make([]Folder, len(data))
+
+	for i, c := range data {
+		res[i] = parseFolder(c.(map[string]interface{}))
+	}
+
+	return res, nil
 }
