@@ -106,7 +106,15 @@ type CustomStatus struct {
 	StandardName, Standard bool
 }
 
+// Project - Represents project details
+type Project struct {
+	// TODO: add type
+}
+
 // Folder - Represents single folder
 type Folder struct {
-	// TODO: Add type
+	ID, Title, Scope string
+	Color            *string
+	ChildIDs         []string
+	Project          Project
 }

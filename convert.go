@@ -471,8 +471,33 @@ func parseCustomStatus(status map[string]interface{}) CustomStatus {
 	return res
 }
 
+func parseProject(project map[string]interface{}) Project {
+	var res Project
+	// TODO: add logic
+	return res
+}
+
 func parseFolder(folder map[string]interface{}) Folder {
 	var res Folder
-	// TODO: Add logic
+
+	res.ID = folder["id"].(string)
+	res.Title = folder["title"].(string)
+	res.Scope = folder["scope"].(string)
+
+	if val, ok := folder["Color"].(string); ok {
+		res.Color = OptionalString(val)
+	}
+
+	if val, ok := folder["childIds"].([]interface{}); ok {
+		res.ChildIDs = make([]string, len(val))
+		for i, s := range val {
+			res.ChildIDs[i] = s.(string)
+		}
+	}
+
+	if val, ok := folder["project"].(map[string]interface{}); ok {
+		res.Project = parseProject(val)
+	}
+
 	return res
 }
