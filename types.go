@@ -129,5 +129,6 @@ type Folder struct {
 
 // Comment - Represents single comment
 type Comment struct {
-	// TODO: add type
+	ID, AuthorID, Text, CreatedDate string
+	TaskID, FolderID                *string
 }

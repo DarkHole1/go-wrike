@@ -545,6 +545,19 @@ func parseFolder(folder map[string]interface{}) Folder {
 
 func parseComment(comment map[string]interface{}) Comment {
 	var res Comment
-	// TODO: add logic
+
+	res.ID = comment["id"].(string)
+	res.AuthorID = comment["authorId"].(string)
+	res.Text = comment["text"].(string)
+	res.CreatedDate = comment["createdDate"].(string)
+
+	if val, ok := comment["taskId"].(string); ok {
+		res.TaskID = OptionalString(val)
+	}
+
+	if val, ok := comment["folderId"].(string); ok {
+		res.FolderID = OptionalString(val)
+	}
+
 	return res
 }
