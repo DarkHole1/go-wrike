@@ -107,6 +107,8 @@ func (api *API) QueryContacts(params *QueryContactsParams) ([]Contact, error) {
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -145,6 +147,8 @@ func (api API) QueryTasks(params *QueryTasksParams) ([]Task, error) {
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -184,6 +188,8 @@ func (api API) GetTasks(taskids []string, params *GetTasksParams) ([]Task, error
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -231,6 +237,8 @@ func (api API) ModifyTask(taskid string, params *ModifyTaskParams) (*Task, error
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -268,6 +276,8 @@ func (api API) GetWorkflows() ([]Workflow, error) {
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -306,6 +316,8 @@ func (api *API) QueryFolders(params *QueryFoldersParams) ([]Folder, error) {
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -315,6 +327,46 @@ func (api *API) QueryFolders(params *QueryFoldersParams) ([]Folder, error) {
 
 	for i, c := range data {
 		res[i] = parseFolder(c.(map[string]interface{}))
+	}
+
+	return res, nil
+}
+
+// CreateComment - Creates comment at task
+func (api *API) CreateComment(taskid string, params *CreateCommentParams) ([]Comment, error) {
+	url := createCommentParams2Values(params)
+	resp, err := jsonRequest("POST", "tasks/"+taskid+"/comments", api.Token, url)
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := checkError(resp)
+	if err != nil {
+		if val, ok := err.(Error); ok {
+			if val.ErrorShort == "not_authorized" {
+				if len(api.RefreshToken) != 0 {
+					err = api.Refresh()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return api.CreateComment(taskid, params)
+				}
+
+				return nil, err
+			}
+
+			return nil, err
+		} else {
+			return nil, err
+		}
+	}
+
+	res := make([]Comment, len(data))
+
+	for i, c := range data {
+		res[i] = parseComment(c.(map[string]interface{}))
 	}
 
 	return res, nil

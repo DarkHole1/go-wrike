@@ -68,6 +68,12 @@ type QueryFoldersParams struct {
 	Metadata                      *Metadata
 }
 
+// CreateCommentParams - Params for CreateComment
+type CreateCommentParams struct {
+	Text      string
+	PlainText *bool
+}
+
 // Contact - Represents single contact
 type Contact struct {
 	ID, FirstName, LastName, Type, AvatarURL, Timezone, Locale string
@@ -119,4 +125,10 @@ type Folder struct {
 	Color            *string
 	ChildIDs         []string
 	Project          Project
+}
+
+// Comment - Represents single comment
+type Comment struct {
+	ID, AuthorID, Text, CreatedDate string
+	TaskID, FolderID                *string
 }

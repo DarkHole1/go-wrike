@@ -301,6 +301,18 @@ func queryFoldersParams2Values(params *QueryFoldersParams) url.Values {
 	return res
 }
 
+func createCommentParams2Values(params *CreateCommentParams) url.Values {
+	res := url.Values{}
+
+	res["text"] = []string{params.Text}
+
+	if params.PlainText != nil {
+		res["plainText"] = []string{strconv.FormatBool(*params.PlainText)}
+	}
+
+	return res
+}
+
 func parseMetadata(meta map[string]interface{}) Metadata {
 	var res Metadata
 	res.Key = meta["key"].(string)
@@ -526,6 +538,25 @@ func parseFolder(folder map[string]interface{}) Folder {
 
 	if val, ok := folder["project"].(map[string]interface{}); ok {
 		res.Project = parseProject(val)
+	}
+
+	return res
+}
+
+func parseComment(comment map[string]interface{}) Comment {
+	var res Comment
+
+	res.ID = comment["id"].(string)
+	res.AuthorID = comment["authorId"].(string)
+	res.Text = comment["text"].(string)
+	res.CreatedDate = comment["createdDate"].(string)
+
+	if val, ok := comment["taskId"].(string); ok {
+		res.TaskID = OptionalString(val)
+	}
+
+	if val, ok := comment["folderId"].(string); ok {
+		res.FolderID = OptionalString(val)
 	}
 
 	return res
