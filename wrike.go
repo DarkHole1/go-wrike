@@ -319,3 +319,9 @@ func (api *API) QueryFolders(params *QueryFoldersParams) ([]Folder, error) {
 
 	return res, nil
 }
+
+// CreateComment - Creates comment at task
+func (api *API) CreateComment(taskid string, params *CreateCommentParams) ([]Comment, error) {
+	// TODO: add logic
+	return nil, nil
+}

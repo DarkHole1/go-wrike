@@ -301,6 +301,12 @@ func queryFoldersParams2Values(params *QueryFoldersParams) url.Values {
 	return res
 }
 
+func createCommentParams2Values(params *CreateCommentParams) url.Values {
+	res := url.Values{}
+	// TODO: add logic
+	return res
+}
+
 func parseMetadata(meta map[string]interface{}) Metadata {
 	var res Metadata
 	res.Key = meta["key"].(string)
@@ -528,5 +534,11 @@ func parseFolder(folder map[string]interface{}) Folder {
 		res.Project = parseProject(val)
 	}
 
+	return res
+}
+
+func parseComment(comment map[string]interface{}) Comment {
+	var res Comment
+	// TODO: add logic
 	return res
 }
