@@ -107,6 +107,8 @@ func (api *API) QueryContacts(params *QueryContactsParams) ([]Contact, error) {
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -145,6 +147,8 @@ func (api API) QueryTasks(params *QueryTasksParams) ([]Task, error) {
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -184,6 +188,8 @@ func (api API) GetTasks(taskids []string, params *GetTasksParams) ([]Task, error
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -231,6 +237,8 @@ func (api API) ModifyTask(taskid string, params *ModifyTaskParams) (*Task, error
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -268,6 +276,8 @@ func (api API) GetWorkflows() ([]Workflow, error) {
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -306,6 +316,8 @@ func (api *API) QueryFolders(params *QueryFoldersParams) ([]Folder, error) {
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}
@@ -323,7 +335,7 @@ func (api *API) QueryFolders(params *QueryFoldersParams) ([]Folder, error) {
 // CreateComment - Creates comment at task
 func (api *API) CreateComment(taskid string, params *CreateCommentParams) ([]Comment, error) {
 	url := createCommentParams2Values(params)
-	resp, err := jsonRequest("GET", "post/"+taskid+"/comments", api.Token, url)
+	resp, err := jsonRequest("POST", "tasks/"+taskid+"/comments", api.Token, url)
 	if err != nil {
 		return nil, err
 	}
@@ -344,6 +356,8 @@ func (api *API) CreateComment(taskid string, params *CreateCommentParams) ([]Com
 
 				return nil, err
 			}
+
+			return nil, err
 		} else {
 			return nil, err
 		}

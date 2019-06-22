@@ -11,7 +11,7 @@ func (e Error) Error() string {
 
 func checkError(response map[string]interface{}) ([]interface{}, error) {
 	if val, ok := response["error"].(string); ok {
-		return nil, Error{ErrorShort: val, ErrorDescription: response["error_description"].(string)}
+		return nil, Error{ErrorShort: val, ErrorDescription: response["errorDescription"].(string)}
 	}
 
 	if val, ok := response["data"].([]interface{}); ok {
@@ -23,7 +23,7 @@ func checkError(response map[string]interface{}) ([]interface{}, error) {
 
 func checkOAuthError(response map[string]interface{}) (string, string, error) {
 	if val, ok := response["error"].(string); ok {
-		return "", "", Error{ErrorShort: val, ErrorDescription: response["error_description"].(string)}
+		return "", "", Error{ErrorShort: val, ErrorDescription: response["errorDescription"].(string)}
 	}
 
 	accessToken := response["access_token"].(string)
