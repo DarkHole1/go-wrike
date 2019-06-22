@@ -70,7 +70,8 @@ type QueryFoldersParams struct {
 
 // CreateCommentParams - Params for CreateComment
 type CreateCommentParams struct {
-	// TODO: add type
+	Text      string
+	PlainText *bool
 }
 
 // Contact - Represents single contact

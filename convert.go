@@ -303,7 +303,13 @@ func queryFoldersParams2Values(params *QueryFoldersParams) url.Values {
 
 func createCommentParams2Values(params *CreateCommentParams) url.Values {
 	res := url.Values{}
-	// TODO: add logic
+
+	res["text"] = []string{params.Text}
+
+	if params.PlainText != nil {
+		res["plainText"] = []string{strconv.FormatBool(*params.PlainText)}
+	}
+
 	return res
 }
 
